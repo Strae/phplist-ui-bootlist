@@ -6,6 +6,11 @@ include_once dirname(__FILE__).'/functions.php';
 /* fix sections not opening submenues on first click */
 $GLOBALS['pagecategories']['statistics']['toplink'] = 'statsoverview';
 $GLOBALS['pagecategories']['develop']['toplink'] = 'tests';
+
+if ( !isset( $GLOBALS['pagecategories']['system']['menulinks'] ) ) {
+  $GLOBALS['pagecategories']['system']['menulinks'] = array();
+}
+
 if ( !in_array('system', $GLOBALS['pagecategories']['system']['menulinks']) ){
 	array_push($GLOBALS['pagecategories']['system']['menulinks'],'system');
 }

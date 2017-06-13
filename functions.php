@@ -18,7 +18,7 @@ $GLOBALS['subcat'] = array(
 /* This function is to add third level to phpList menu */
 function pageSubCategory($menulinks = array(), $current) {
     foreach ($GLOBALS['subcat'] as $subcategory => $subcat_details) {
-        if ( !in_array($current, $menulinks) /* <-first check if is not a menulink */ 
+        if ( !in_array($current, $menulinks) /* <-first check if is not a menulink */
         	&& in_array($current, $subcat_details) /* then find the menulink in array above */ ) {
             return $subcategory;
         }
@@ -79,7 +79,7 @@ function _topMenu()
                $title = $GLOBALS['I18N']->pageTitle($page);
                 $active = '';
 				if ( isset($_GET['pi']) && $page == $current_page.'&pi='.$_GET['pi']
-                	|| !$_GET['pi'] && $page == $current_page 
+                	|| !$_GET['pi'] && $page == $current_page
                 	|| $page == pageSubCategory($categoryDetails['menulinks'], $current_page) ) {
 					   $active = ' class="active"';
                 }
@@ -98,14 +98,14 @@ function _topMenu()
 					if ($active == ' class="active"')  $active = ' class="open active"';
                     $accmenu .= '<ul><li '.$active.'.><a class="level0" href="' . PageUrl2($page, '', '', true). '" title="' . $title . '"><span class="glyphicon '.$icon.'">'.$icontext.'</span>' . ucfirst($page_title) . '</a></li></ul>';
                 }
-                
+
                 /* add item to mainmenu ($thismenu) */
                  elseif ($link) {
                 	$thismenu .= '<li' . $active . '>' . $link . '</li>';
                 }
          }
         $twohomes = array('dashboard','home');
-        if ( in_array($current_page,$twohomes) && $categoryDetails['toplink'] == 'dashboard' ) { // page 'home' redirect from dashboard
+        if ( in_array($current_page,$twohomes) && isset( $categoryDetails['toplink'] ) && $categoryDetails['toplink'] == 'dashboard' ) { // page 'home' redirect from dashboard
                     $open = ' class=" active open"';
         }
         if (!empty($thismenu)) {
@@ -120,15 +120,14 @@ function _topMenu()
             } else {
                 $topmenu .= '<ul><li><span>' . $GLOBALS['I18N']->get($category) . $categoryurl . '</span>' . $thismenu . '</li></ul>';
             }
-        }/* <- end foreach menulinks */        
+        }/* <- end foreach menulinks */
     } /* <- end foreach category */
 
 	/* add an Account  section if category exist */
 	if (!empty($accmenu)) {
 		$topmenu.='<h3 id="accmenu">'.$GLOBALS['I18N']->get('Profile and account').'</h3>'.$accmenu;
 	}
-	
+
     $topmenu .= '</div>';
     return $topmenu;
 }
-
